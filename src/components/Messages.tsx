@@ -1,4 +1,3 @@
-
 import { MessageSquare, Search, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -113,31 +112,18 @@ export const Messages = () => {
                     >
                       {message.priority}
                     </span>
-                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
-                      {message.type}
-                    </span>
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
                         message.status === "Unread"
                           ? "bg-blue-100 text-blue-700"
-                          : message.status === "Read"
-                          ? "bg-gray-100 text-gray-700"
-                          : "bg-green-100 text-green-700"
+                          : "bg-gray-100 text-gray-700"
                       }`}
                     >
                       {message.status}
                     </span>
                   </div>
                 </div>
-                <p className="text-gray-700 ml-13 text-sm">{message.message}</p>
-                <div className="mt-3 ml-13">
-                  <Button size="sm" className="mr-2 text-xs">
-                    Reply
-                  </Button>
-                  <Button size="sm" variant="outline" className="text-xs">
-                    View Details
-                  </Button>
-                </div>
+                <p className="text-gray-700">{message.message}</p>
               </div>
             ))}
           </div>

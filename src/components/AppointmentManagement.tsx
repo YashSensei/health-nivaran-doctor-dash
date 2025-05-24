@@ -135,9 +135,14 @@ export const AppointmentManagement = () => {
               <div className="flex flex-col gap-4">
                 {appointmentRequests.length === 0 ? (
                   <div className="text-gray-400 text-sm text-center py-8">No pending requests.</div>
-                ) : appointmentRequests.map((request) => (
-                  <div key={request.id} className="flex items-start justify-between border-b last:border-b-0 border-gray-100 pb-4">
-                    <div className="flex-1">
+                ) : appointmentRequests.map((request, idx) => (
+                  <div
+                    key={request.id}
+                    className={`flex items-start justify-between border-b last:border-b-0 border-gray-100 pb-4 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group`}
+                    style={{ marginTop: idx === 0 ? 0 : '12px' }}
+                  >
+                    <div className="absolute left-0 top-2 bottom-2 w-2 rounded bg-blue-300 group-hover:bg-blue-500 transition-colors" />
+                    <div className="flex-1 pl-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-medium text-gray-800 text-sm">{request.patient}</span>
                         <span className="px-2 py-0.5 rounded text-xs font-normal bg-gray-100 text-gray-600 border border-gray-200">{request.priority} Priority</span>
@@ -181,9 +186,14 @@ export const AppointmentManagement = () => {
             </CardHeader>
             <CardContent className="px-6 pb-6 pt-0">
               <div className="flex flex-col gap-3">
-                {confirmedAppointments.map((appointment) => (
-                  <div key={appointment.id} className="flex items-center justify-between border-b last:border-b-0 border-gray-100 pb-3">
-                    <div className="flex items-center gap-4">
+                {confirmedAppointments.map((appointment, idx) => (
+                  <div
+                    key={appointment.id}
+                    className={`flex items-center justify-between border-b last:border-b-0 border-gray-100 pb-3 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group`}
+                    style={{ marginTop: idx === 0 ? 0 : '12px' }}
+                  >
+                    <div className="absolute left-0 top-2 bottom-2 w-2 rounded bg-green-300 group-hover:bg-green-500 transition-colors" />
+                    <div className="flex items-center gap-4 pl-4">
                       <div className="text-xs text-gray-500 w-16">{appointment.time}</div>
                       <div>
                         <div className="font-medium text-gray-800 text-sm">{appointment.patient}</div>

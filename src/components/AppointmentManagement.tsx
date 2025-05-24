@@ -79,8 +79,8 @@ export const AppointmentManagement = () => {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Appointment Management</h1>
-        <p className="text-gray-600 mt-1">Manage appointment requests and your schedule</p>
+        <h1 className="text-xl font-bold text-gray-900">Appointment Management</h1>
+        <p className="text-gray-600 mt-1 text-sm">Manage appointment requests and your schedule</p>
       </div>
 
       {/* Summary Cards */}
@@ -89,10 +89,10 @@ export const AppointmentManagement = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Requests</p>
-                <p className="text-2xl font-bold text-orange-600">{appointmentRequests.length}</p>
+                <p className="text-xs font-medium text-gray-600">Pending Requests</p>
+                <p className="text-xl font-bold text-orange-600">{appointmentRequests.length}</p>
               </div>
-              <Clock className="h-8 w-8 text-orange-600" />
+              <Clock className="h-6 w-6 text-orange-600" />
             </div>
           </CardContent>
         </Card>
@@ -101,10 +101,10 @@ export const AppointmentManagement = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Today's Appointments</p>
-                <p className="text-2xl font-bold text-blue-600">{confirmedAppointments.length}</p>
+                <p className="text-xs font-medium text-gray-600">Today's Appointments</p>
+                <p className="text-xl font-bold text-blue-600">{confirmedAppointments.length}</p>
               </div>
-              <Calendar className="h-8 w-8 text-blue-600" />
+              <Calendar className="h-6 w-6 text-blue-600" />
             </div>
           </CardContent>
         </Card>
@@ -113,10 +113,10 @@ export const AppointmentManagement = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Patients</p>
-                <p className="text-2xl font-bold text-green-600">24</p>
+                <p className="text-xs font-medium text-gray-600">Total Patients</p>
+                <p className="text-xl font-bold text-green-600">24</p>
               </div>
-              <Users className="h-8 w-8 text-green-600" />
+              <Users className="h-6 w-6 text-green-600" />
             </div>
           </CardContent>
         </Card>
@@ -125,26 +125,26 @@ export const AppointmentManagement = () => {
       {/* Appointment Tabs */}
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="requests">Pending Requests</TabsTrigger>
-          <TabsTrigger value="confirmed">Today's Schedule</TabsTrigger>
+          <TabsTrigger value="requests" className="text-sm">Pending Requests</TabsTrigger>
+          <TabsTrigger value="confirmed" className="text-sm">Today's Schedule</TabsTrigger>
         </TabsList>
 
         <TabsContent value="requests" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-orange-600" />
+              <CardTitle className="flex items-center text-lg">
+                <Clock className="h-4 w-4 mr-2 text-orange-600" />
                 Appointment Requests Awaiting Approval
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {appointmentRequests.map((request) => (
-                  <div key={request.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                  <div key={request.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center space-x-4 mb-3">
-                          <h3 className="text-lg font-semibold text-gray-900">{request.patient}</h3>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <h3 className="text-sm font-semibold text-gray-900">{request.patient}</h3>
                           <span
                             className={`px-2 py-1 rounded-full text-xs font-medium ${
                               request.priority === "High"
@@ -161,7 +161,7 @@ export const AppointmentManagement = () => {
                           </span>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                           <div>
                             <p className="font-medium text-gray-600">Requested Time</p>
                             <p className="text-gray-900">{request.requestedTime}</p>
@@ -180,17 +180,19 @@ export const AppointmentManagement = () => {
                       <div className="flex space-x-3 ml-6">
                         <Button
                           onClick={() => handleApprove(request.id)}
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5"
+                          size="sm"
                         >
-                          <CheckCircle className="h-4 w-4 mr-1" />
+                          <CheckCircle className="h-3 w-3 mr-1" />
                           Accept
                         </Button>
                         <Button
                           onClick={() => handleReject(request.id)}
                           variant="outline"
-                          className="border-red-300 text-red-600 hover:bg-red-50"
+                          className="border-red-300 text-red-600 hover:bg-red-50 text-xs px-3 py-1.5"
+                          size="sm"
                         >
-                          <XCircle className="h-4 w-4 mr-1" />
+                          <XCircle className="h-3 w-3 mr-1" />
                           Reject
                         </Button>
                       </div>
@@ -205,29 +207,32 @@ export const AppointmentManagement = () => {
         <TabsContent value="confirmed" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+              <CardTitle className="flex items-center text-lg">
+                <Calendar className="h-4 w-4 mr-2 text-blue-600" />
                 Today's Confirmed Appointments
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {confirmedAppointments.map((appointment) => (
-                  <div key={appointment.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div key={appointment.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center space-x-4">
-                      <div className="text-sm font-medium text-blue-600 w-20">
+                      <div className="text-xs font-medium text-blue-600 w-16">
                         {appointment.time}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{appointment.patient}</p>
-                        <p className="text-sm text-gray-600">{appointment.reason}</p>
+                        <p className="font-medium text-gray-900 text-sm">{appointment.patient}</p>
+                        <p className="text-xs text-gray-600">{appointment.reason}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
                         {appointment.status}
                       </span>
-                      <Button className="bg-blue-600 hover:bg-blue-700">
+                      <Button 
+                        className="bg-blue-600 hover:bg-blue-700 text-xs px-3 py-1.5"
+                        size="sm"
+                      >
                         Start Consultation
                       </Button>
                     </div>

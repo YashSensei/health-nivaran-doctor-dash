@@ -1,6 +1,7 @@
 import { Calendar, Users, FileText, MessageSquare, Settings, User, List, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getUnreadMessagesCount } from "./Messages";
+import { notifications } from "./Notifications";
 
 interface SidebarProps {
   activeSection: string;
@@ -9,6 +10,7 @@ interface SidebarProps {
 
 const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   const unreadMessagesCount = getUnreadMessagesCount();
+  const unreadNotificationsCount = notifications.filter(n => n.unread).length;
 
   const navigationItems = [
     { id: "overview", label: "Overview", icon: Calendar },
@@ -18,7 +20,7 @@ const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     { id: "documents", label: "Documents", icon: FileText },
     { id: "messages", label: "Messages", icon: MessageSquare, badge: unreadMessagesCount > 0 ? unreadMessagesCount : undefined },
     { id: "medication", label: "Medication", icon: List },
-    { id: "notifications", label: "Notifications", icon: Calendar, badge: 5 },
+    { id: "notifications", label: "Notifications", icon: Calendar, badge: unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined },
     { id: "settings", label: "Settings", icon: Settings },
   ];
 

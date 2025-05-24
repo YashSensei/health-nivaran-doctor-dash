@@ -138,18 +138,26 @@ export const AppointmentManagement = () => {
                 ) : appointmentRequests.map((request, idx) => (
                   <div
                     key={request.id}
-                    className={`flex items-start justify-between border-b last:border-b-0 border-gray-100 pb-4 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group`}
+                    className={`flex items-start justify-between border-b last:border-b-0 border-gray-100 pb-4 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group hover:bg-gray-100 transition-colors`}
                     style={{ marginTop: idx === 0 ? 0 : '12px' }}
                   >
                     <div className="absolute left-0 top-2 bottom-2 w-2 rounded bg-blue-300 group-hover:bg-blue-500 transition-colors" />
                     <div className="flex-1 pl-4">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-gray-800 text-sm">{request.patient}</span>
-                        <span className="px-2 py-0.5 rounded text-xs font-normal bg-gray-100 text-gray-600 border border-gray-200">{request.priority} Priority</span>
-                        <span className="px-2 py-0.5 rounded text-xs font-normal bg-green-50 text-green-700 border border-green-100">{request.source}</span>
+                        <span className="font-semibold text-gray-800 text-sm">{request.patient}</span>
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs font-normal border ${request.priority === 'High' ? 'border-red-300 text-red-700 bg-red-50' : request.priority === 'Medium' ? 'border-orange-300 text-orange-700 bg-orange-50' : 'border-green-300 text-green-700 bg-green-50'}`}
+                        >
+                          {request.priority}
+                        </span>
                       </div>
-                      <div className="text-xs text-gray-500 mb-1">{request.requestedTime} • {request.reason}</div>
-                      <div className="text-xs text-gray-400">Requested {request.submitted}</div>
+                      <div className="text-xs text-gray-500 flex items-center gap-2">
+                        <span>{request.requestedTime}</span>
+                        <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                        <span>{request.reason}</span>
+                        <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                        <span>Requested {request.submitted}</span>
+                      </div>
                     </div>
                     <div className="flex flex-col gap-2 ml-4">
                       <Button
@@ -189,14 +197,14 @@ export const AppointmentManagement = () => {
                 {confirmedAppointments.map((appointment, idx) => (
                   <div
                     key={appointment.id}
-                    className={`flex items-center justify-between border-b last:border-b-0 border-gray-100 pb-3 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group`}
+                    className={`flex items-center justify-between border-b last:border-b-0 border-gray-100 pb-3 rounded-lg relative ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} group hover:bg-gray-100 transition-colors`}
                     style={{ marginTop: idx === 0 ? 0 : '12px' }}
                   >
                     <div className="absolute left-0 top-2 bottom-2 w-2 rounded bg-green-300 group-hover:bg-green-500 transition-colors" />
                     <div className="flex items-center gap-4 pl-4">
                       <div className="text-xs text-gray-500 w-16">{appointment.time}</div>
                       <div>
-                        <div className="font-medium text-gray-800 text-sm">{appointment.patient}</div>
+                        <div className="font-semibold text-gray-800 text-sm">{appointment.patient}</div>
                         <div className="text-xs text-gray-500">{appointment.reason}</div>
                       </div>
                     </div>

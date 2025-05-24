@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Card } from "@/components/ui/card";
@@ -152,45 +153,63 @@ export const DashboardOverview = () => {
               <div className="text-lg font-bold text-blue-900">Upcoming schedule</div>
               <button className="text-blue-600 text-sm font-semibold hover:underline">View All</button>
             </div>
-            <div className="flex-1 overflow-y-auto pr-2">
+            <div className="flex-1 overflow-y-auto">
               <div className="relative">
-                {/* Timeline vertical line, perfectly centered */}
-                <div className="absolute top-0 bottom-0 left-10 w-0.5 bg-gray-200 z-0 pointer-events-none" />
-                <ol className="space-y-6">
+                {/* Vertical timeline line */}
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
+                
+                <div className="space-y-4">
                   {schedule.map((item, idx) => (
-                    <li key={idx} className="relative flex items-start z-10">
-                      {/* Time marker and dot, both centered in a 40px (w-10) column */}
-                      <div className="flex flex-col items-center justify-start mr-4 w-10 relative z-10">
-                        <span className="text-gray-400 text-xs mb-1">{item.time}</span>
-                        <span className={`w-4 h-4 rounded-full border-2 ${idx === selectedSchedule ? "bg-blue-500 border-blue-500" : "bg-white border-gray-300"} z-10`} style={{ marginTop: 0 }}></span>
+                    <div key={idx} className="relative flex items-start">
+                      {/* Time and dot container */}
+                      <div className="flex flex-col items-center w-12 flex-shrink-0">
+                        <span className="text-gray-400 text-xs mb-2">{item.time}</span>
+                        <div className={`w-3 h-3 rounded-full border-2 relative z-10 ${
+                          idx === selectedSchedule 
+                            ? "bg-blue-500 border-blue-500" 
+                            : "bg-white border-gray-300"
+                        }`} />
                       </div>
-                      <div className="flex-1 pl-2">
+                      
+                      {/* Content */}
+                      <div className="flex-1 ml-4 pb-4">
                         {item.patient ? (
                           <button
                             onClick={() => setSelectedSchedule(idx)}
-                            className={`text-left font-semibold text-sm ${idx === selectedSchedule ? "text-blue-700 underline" : "text-blue-600 hover:underline"}`}
+                            className={`text-left font-semibold text-sm block ${
+                              idx === selectedSchedule 
+                                ? "text-blue-700" 
+                                : "text-blue-600 hover:text-blue-700"
+                            }`}
                           >
                             {item.title}
                           </button>
                         ) : (
                           <span className="text-gray-400 text-sm line-through">{item.title}</span>
                         )}
+                        
                         {/* Expanded details for selected schedule */}
                         {item.patient && idx === selectedSchedule && (
-                          <div className="mt-3 bg-white border border-blue-100 shadow-md rounded-lg p-4 w-72">
+                          <div className="mt-3 bg-blue-50 border border-blue-100 rounded-lg p-4">
                             <div className="mb-2">
                               <div className="text-xs text-gray-500 font-medium">Patient</div>
-                              <div className="text-base font-semibold text-blue-900">{item.patient.name}</div>
+                              <div className="text-sm font-semibold text-blue-900">{item.patient.name}</div>
                             </div>
-                            <div className="text-xs text-gray-500 mb-1">Time: <span className="text-gray-700">{item.patient.time}</span></div>
-                            <div className="text-xs text-gray-500 mb-3">Purpose: <span className="text-gray-700">{item.patient.purpose}</span></div>
-                            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-blue-700 w-full">Begin appointment</button>
+                            <div className="text-xs text-gray-500 mb-1">
+                              Time: <span className="text-gray-700">{item.patient.time}</span>
+                            </div>
+                            <div className="text-xs text-gray-500 mb-3">
+                              Purpose: <span className="text-gray-700">{item.patient.purpose}</span>
+                            </div>
+                            <button className="bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-blue-700 w-full">
+                              Begin appointment
+                            </button>
                           </div>
                         )}
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ol>
+                </div>
               </div>
             </div>
           </Card>

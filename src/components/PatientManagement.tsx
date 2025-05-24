@@ -76,10 +76,10 @@ export const PatientManagement = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Patient Management</h1>
-          <p className="text-gray-600 mt-1">Manage your patient records and medical history</p>
+          <h1 className="text-xl font-bold text-gray-900">Patient Management</h1>
+          <p className="text-gray-600 mt-1 text-sm">Manage your patient records and medical history</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-sm">
           <User className="h-4 w-4 mr-2" />
           Add New Patient
         </Button>
@@ -98,7 +98,7 @@ export const PatientManagement = () => {
                 className="pl-10"
               />
             </div>
-            <Button variant="outline">Filter</Button>
+            <Button variant="outline" className="text-sm">Filter</Button>
           </div>
         </CardContent>
       </Card>
@@ -106,8 +106,8 @@ export const PatientManagement = () => {
       {/* Patient List */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
-            <Users className="h-5 w-5 mr-2 text-blue-600" />
+          <CardTitle className="flex items-center text-lg">
+            <Users className="h-4 w-4 mr-2 text-blue-600" />
             Patient List ({filteredPatients.length})
           </CardTitle>
         </CardHeader>
@@ -121,18 +121,18 @@ export const PatientManagement = () => {
               >
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 font-medium">{patient.avatar}</span>
+                    <span className="text-blue-600 font-medium text-sm">{patient.avatar}</span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{patient.name}</p>
-                    <p className="text-sm text-gray-600">
+                    <p className="font-medium text-gray-900 text-sm">{patient.name}</p>
+                    <p className="text-xs text-gray-600">
                       {patient.age} years • {patient.gender} • {patient.phone}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium text-gray-900">{patient.condition}</p>
-                  <p className="text-sm text-gray-500">Last visit: {patient.lastVisit}</p>
+                  <p className="text-xs text-gray-500">Last visit: {patient.lastVisit}</p>
                   <span
                     className={`inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 ${
                       patient.status === "Active"

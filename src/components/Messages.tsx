@@ -34,16 +34,23 @@ const messages = [
   },
 ];
 
+// Export unread count for sidebar
+export const getUnreadMessagesCount = () => {
+  return messages.filter(message => message.status === "Unread").length;
+};
+
 export const Messages = () => {
+  const unreadCount = getUnreadMessagesCount();
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Messages & Notifications</h1>
-          <p className="text-gray-600 mt-1">Patient messages and WhatsApp bot interactions</p>
+          <h1 className="text-xl font-bold text-gray-900">Messages & Notifications</h1>
+          <p className="text-gray-600 mt-1 text-sm">Patient messages and WhatsApp bot interactions</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-sm">
           <MessageSquare className="h-4 w-4 mr-2" />
           Compose Message
         </Button>
@@ -65,12 +72,12 @@ export const Messages = () => {
       {/* Messages List */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
+          <CardTitle className="flex items-center justify-between text-lg">
             <span className="flex items-center">
-              <MessageSquare className="h-5 w-5 mr-2 text-blue-600" />
+              <MessageSquare className="h-4 w-4 mr-2 text-blue-600" />
               Recent Messages
             </span>
-            <span className="text-sm text-gray-500">3 unread</span>
+            <span className="text-sm text-gray-500">{unreadCount} unread</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -90,8 +97,8 @@ export const Messages = () => {
                       <User className="h-5 w-5 text-blue-600" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">{message.patient}</p>
-                      <p className="text-sm text-gray-500">{message.time}</p>
+                      <p className="font-semibold text-gray-900 text-sm">{message.patient}</p>
+                      <p className="text-xs text-gray-500">{message.time}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -122,12 +129,12 @@ export const Messages = () => {
                     </span>
                   </div>
                 </div>
-                <p className="text-gray-700 ml-13">{message.message}</p>
+                <p className="text-gray-700 ml-13 text-sm">{message.message}</p>
                 <div className="mt-3 ml-13">
-                  <Button size="sm" className="mr-2">
+                  <Button size="sm" className="mr-2 text-xs">
                     Reply
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" className="text-xs">
                     View Details
                   </Button>
                 </div>

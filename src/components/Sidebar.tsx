@@ -1,25 +1,28 @@
 
 import { Calendar, Users, FileText, MessageSquare, Settings, User, List, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getUnreadMessagesCount } from "./Messages";
 
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
 }
 
-const navigationItems = [
-  { id: "overview", label: "Overview", icon: Calendar },
-  { id: "appointments", label: "Appointments", icon: Clock },
-  { id: "patients", label: "Patients", icon: Users },
-  { id: "schedule", label: "Schedule", icon: Calendar },
-  { id: "documents", label: "Documents", icon: FileText },
-  { id: "messages", label: "Messages", icon: MessageSquare, badge: 3 },
-  { id: "medication", label: "Medication", icon: List },
-  { id: "notifications", label: "Notifications", icon: Calendar, badge: 5 },
-  { id: "settings", label: "Settings", icon: Settings },
-];
+const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
+  const unreadMessagesCount = getUnreadMessagesCount();
 
-export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
+  const navigationItems = [
+    { id: "overview", label: "Overview", icon: Calendar },
+    { id: "appointments", label: "Appointments", icon: Clock },
+    { id: "patients", label: "Patients", icon: Users },
+    { id: "schedule", label: "Schedule", icon: Calendar },
+    { id: "documents", label: "Documents", icon: FileText },
+    { id: "messages", label: "Messages", icon: MessageSquare, badge: unreadMessagesCount > 0 ? unreadMessagesCount : undefined },
+    { id: "medication", label: "Medication", icon: List },
+    { id: "notifications", label: "Notifications", icon: Calendar, badge: 5 },
+    { id: "settings", label: "Settings", icon: Settings },
+  ];
+
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 shadow-sm">
       {/* Header */}
@@ -77,3 +80,5 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     </div>
   );
 };
+
+export { Sidebar };

@@ -64,19 +64,19 @@ export const DashboardOverview = () => {
     <div className="flex flex-col gap-6 w-full">
       {/* Top Bar */}
       <div className="flex items-center justify-between mb-4">
-        <div className="text-2xl font-bold text-blue-900">Today</div>
+        <div className="text-xl font-bold text-blue-900">Today</div>
         <div className="flex items-center gap-4">
           <input
             type="text"
             placeholder="Search"
-            className="rounded-lg border border-gray-200 px-4 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200"
+            className="rounded-lg border border-gray-200 px-4 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm"
           />
           <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
-            <BellIcon className="h-6 w-6 text-blue-500" />
+            <BellIcon className="h-5 w-5 text-blue-500" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">2</span>
           </button>
           <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
-            <BellIcon className="h-6 w-6 text-blue-500" />
+            <BellIcon className="h-5 w-5 text-blue-500" />
             <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full px-1.5">1</span>
           </button>
         </div>
@@ -92,15 +92,15 @@ export const DashboardOverview = () => {
                 <div className="flex items-center gap-4">
                   <div className={`rounded-lg p-3 ${card.iconBg}`}>{
                     card.icon === "briefcase" ? (
-                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
+                      <svg className={`w-6 h-6 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
                     ) : card.icon === "clock" ? (
-                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                      <svg className={`w-6 h-6 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                     ) : (
-                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 21v-4a4 4 0 0 1 8 0v4"/></svg>
+                      <svg className={`w-6 h-6 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 21v-4a4 4 0 0 1 8 0v4"/></svg>
                     )
                   }</div>
                   <div>
-                    <div className="text-2xl font-bold text-blue-900">{card.value}</div>
+                    <div className="text-xl font-bold text-blue-900">{card.value}</div>
                     <div className="text-gray-500 text-sm">{card.title}</div>
                   </div>
                 </div>
@@ -121,20 +121,20 @@ export const DashboardOverview = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr className="text-gray-500 text-left">
-                    <th className="py-2 px-2 font-medium">Visit No.</th>
-                    <th className="py-2 px-2 font-medium">Patient Name</th>
-                    <th className="py-2 px-2 font-medium">Gender</th>
-                    <th className="py-2 px-2 font-medium">Reason</th>
-                    <th className="py-2 px-2 font-medium">Action</th>
+                    <th className="py-2 px-2 font-medium text-xs">Visit No.</th>
+                    <th className="py-2 px-2 font-medium text-xs">Patient Name</th>
+                    <th className="py-2 px-2 font-medium text-xs">Gender</th>
+                    <th className="py-2 px-2 font-medium text-xs">Reason</th>
+                    <th className="py-2 px-2 font-medium text-xs">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {appointments.map((a, idx) => (
                     <tr key={a.visit} className="border-b last:border-b-0">
-                      <td className="py-2 px-2 text-blue-700 font-semibold">{a.visit}</td>
-                      <td className="py-2 px-2">{a.name}</td>
-                      <td className="py-2 px-2">{a.gender}</td>
-                      <td className="py-2 px-2">{a.reason}</td>
+                      <td className="py-2 px-2 text-blue-700 font-semibold text-sm">{a.visit}</td>
+                      <td className="py-2 px-2 text-sm">{a.name}</td>
+                      <td className="py-2 px-2 text-sm">{a.gender}</td>
+                      <td className="py-2 px-2 text-sm">{a.reason}</td>
                       <td className="py-2 px-2">
                         <button className="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-xs font-semibold hover:bg-blue-100">Consult</button>
                       </td>

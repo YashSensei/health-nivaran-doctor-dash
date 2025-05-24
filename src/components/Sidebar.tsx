@@ -24,13 +24,13 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
     <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 shadow-sm">
       {/* Header */}
       <div className="p-6 border-b border-gray-100">
-        <h1 className="text-xl font-bold text-blue-600">Health Nivaran</h1>
-        <p className="text-sm text-gray-500 mt-1">Doctor's Dashboard</p>
+        <h1 className="text-lg font-bold text-blue-600">Health Nivaran</h1>
+        <p className="text-xs text-gray-500 mt-1">Doctor's Dashboard</p>
       </div>
 
       {/* Navigation */}
       <nav className="p-4">
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -40,18 +40,18 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
                 <button
                   onClick={() => onSectionChange(item.id)}
                   className={cn(
-                    "w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-colors",
+                    "w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors text-sm",
                     isActive
                       ? "bg-blue-50 text-blue-600 border border-blue-200"
                       : "text-gray-700 hover:bg-gray-50"
                   )}
                 >
                   <div className="flex items-center">
-                    <Icon className="h-5 w-5 mr-3" />
+                    <Icon className="h-4 w-4 mr-3" />
                     <span className="font-medium">{item.label}</span>
                   </div>
                   {item.badge && (
-                    <span className="bg-orange-400 text-white text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
+                    <span className="bg-orange-400 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center leading-none">
                       {item.badge}
                     </span>
                   )}
@@ -65,12 +65,12 @@ export const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
       {/* Doctor Profile */}
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-            <User className="h-5 w-5 text-blue-600" />
+          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <User className="h-4 w-4 text-blue-600" />
           </div>
           <div>
-            <p className="font-medium text-gray-900">Dr. Sarah Johnson</p>
-            <p className="text-sm text-gray-500">General Physician</p>
+            <p className="font-medium text-gray-900 text-sm">Dr. Sarah Johnson</p>
+            <p className="text-xs text-gray-500">General Physician</p>
           </div>
         </div>
       </div>

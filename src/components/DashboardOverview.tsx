@@ -1,7 +1,9 @@
-
 import React, { useState } from "react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Card } from "@/components/ui/card";
+import { notifications as notificationsData } from "@/components/Notifications";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 const summaryCards = [
   {
@@ -59,6 +61,11 @@ const schedule = [
 
 export const DashboardOverview = () => {
   const [selectedSchedule, setSelectedSchedule] = useState(2);
+  const unreadNotifications = notificationsData.filter(n => n.unread);
+
+  // Demo auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const doctorName = "Dr. Sarah Johnson";
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -66,19 +73,59 @@ export const DashboardOverview = () => {
       <div className="flex items-center justify-between mb-4">
         <div className="text-xl font-bold text-blue-900">Today</div>
         <div className="flex items-center gap-4">
-          <input
-            type="text"
-            placeholder="Search"
-            className="rounded-lg border border-gray-200 px-4 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm"
-          />
-          <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
-            <BellIcon className="h-5 w-5 text-blue-500" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">2</span>
-          </button>
-          <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
-            <BellIcon className="h-5 w-5 text-blue-500" />
-            <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full px-1.5">1</span>
-          </button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
+                <BellIcon className="h-5 w-5 text-blue-500" />
+                {unreadNotifications.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">
+                    {unreadNotifications.length}
+                  </span>
+                )}
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-0">
+              <div className="p-4 border-b font-semibold text-blue-900">New Notifications</div>
+              <div className="max-h-80 overflow-y-auto">
+                {unreadNotifications.length === 0 ? (
+                  <div className="p-4 text-gray-500 text-sm">No new notifications</div>
+                ) : (
+                  unreadNotifications.map((n) => (
+                    <div key={n.id} className="flex items-start gap-3 p-4 border-b last:border-b-0 hover:bg-gray-50">
+                      <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
+                        <n.icon className="h-5 w-5" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-sm text-gray-900">{n.title}</div>
+                        <div className="text-xs text-gray-700 mt-1">{n.message}</div>
+                        <div className="text-xs text-gray-400 mt-1">{n.time}</div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
+          {/* Auth logic */}
+          {isLoggedIn ? (
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" className="font-semibold text-blue-900 px-4">
+                  {doctorName}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-40 p-2">
+                <div className="text-sm mb-2">Signed in as<br /><span className="font-semibold">{doctorName}</span></div>
+                <Button variant="outline" className="w-full" onClick={() => setIsLoggedIn(false)}>
+                  Sign Out
+                </Button>
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4" onClick={() => setIsLoggedIn(true)}>
+              Sign In / Login
+            </Button>
+          )}
         </div>
       </div>
 
@@ -185,7 +232,7 @@ export const DashboardOverview = () => {
                             {item.title}
                           </button>
                         ) : (
-                          <span className="text-gray-400 text-sm line-through">{item.title}</span>
+                          <span className={`text-gray-400 text-sm${idx < selectedSchedule ? " line-through" : ""}`}>{item.title}</span>
                         )}
                         
                         {/* Expanded details for selected schedule */}

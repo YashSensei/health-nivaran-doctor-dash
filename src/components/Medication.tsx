@@ -1,4 +1,3 @@
-
 import { List, Search, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -40,8 +39,8 @@ export const Medication = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Medication Management</h1>
-          <p className="text-gray-600 mt-1">Track patient prescriptions and medication history</p>
+          <h1 className="text-xl font-bold text-gray-900">Medication Management</h1>
+          <p className="text-sm text-gray-600 mt-1">Track patient prescriptions and medication history</p>
         </div>
         <Button className="bg-blue-600 hover:bg-blue-700">
           <List className="h-4 w-4 mr-2" />
@@ -65,8 +64,8 @@ export const Medication = () => {
       {/* Medications List */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center">
-            <List className="h-5 w-5 mr-2 text-blue-600" />
+          <CardTitle className="flex items-center text-[1.1rem]">
+            <List className="h-4 w-4 mr-2 text-blue-600" />
             Active Prescriptions ({medications.filter(m => m.status === "Active").length})
           </CardTitle>
         </CardHeader>
@@ -81,7 +80,7 @@ export const Medication = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900">{med.patient}</h3>
+                        <h3 className="text-sm font-semibold text-gray-900">{med.patient}</h3>
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium ${
                             med.status === "Active"
@@ -95,22 +94,22 @@ export const Medication = () => {
                       
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <p className="font-medium text-gray-600">Medication</p>
-                          <p className="text-gray-900">{med.medication}</p>
+                          <p className="text-xs font-medium text-gray-600">Medication</p>
+                          <p className="text-sm text-gray-900">{med.medication}</p>
                         </div>
                         <div>
-                          <p className="font-medium text-gray-600">Dosage</p>
-                          <p className="text-gray-900">{med.dosage}</p>
+                          <p className="text-xs font-medium text-gray-600">Dosage</p>
+                          <p className="text-sm text-gray-900">{med.dosage}</p>
                         </div>
                         <div>
-                          <p className="font-medium text-gray-600">Start Date</p>
-                          <p className="text-gray-900">{med.startDate}</p>
+                          <p className="text-xs font-medium text-gray-600">Start Date</p>
+                          <p className="text-sm text-gray-900">{med.startDate}</p>
                         </div>
                       </div>
                       
                       {med.status === "Active" && (
                         <div className="mt-3">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs text-gray-600">
                             <span className="font-medium">Refills remaining:</span> {med.refillsLeft}
                           </p>
                         </div>

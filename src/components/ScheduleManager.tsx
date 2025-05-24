@@ -1,7 +1,7 @@
-
 import { Calendar, Clock, Settings } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import React from "react";
 
 const timeSlots = [
   { time: "09:00 AM", available: true, booked: false },
@@ -16,14 +16,14 @@ const timeSlots = [
   { time: "03:00 PM", available: true, booked: false },
 ];
 
-export const ScheduleManager = () => {
+export const ScheduleManager = ({ onModifyHours }: { onModifyHours?: () => void }) => {
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Schedule Manager</h1>
-          <p className="text-gray-600 mt-1">Manage your availability and consultation hours</p>
+          <h1 className="text-xl font-bold text-gray-900">Schedule Manager</h1>
+          <p className="text-sm text-gray-600 mt-1">Manage your availability and consultation hours</p>
         </div>
         <Button className="bg-blue-600 hover:bg-blue-700">
           <Settings className="h-4 w-4 mr-2" />
@@ -37,8 +37,8 @@ export const ScheduleManager = () => {
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+              <CardTitle className="flex items-center text-base">
+                <Calendar className="h-4 w-4 mr-2 text-blue-600" />
                 Today's Schedule - January 25, 2024
               </CardTitle>
             </CardHeader>
@@ -79,25 +79,25 @@ export const ScheduleManager = () => {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-blue-600" />
+              <CardTitle className="flex items-center text-base">
+                <Clock className="h-4 w-4 mr-2 text-blue-600" />
                 Consultation Hours
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="font-medium text-gray-900">Morning Session</p>
-                <p className="text-gray-600">09:00 AM - 12:00 PM</p>
+                <p className="text-sm font-medium text-gray-900">Morning Session</p>
+                <p className="text-xs text-gray-600">09:00 AM - 12:00 PM</p>
               </div>
               <div>
-                <p className="font-medium text-gray-900">Afternoon Session</p>
-                <p className="text-gray-600">02:00 PM - 05:00 PM</p>
+                <p className="text-sm font-medium text-gray-900">Afternoon Session</p>
+                <p className="text-xs text-gray-600">02:00 PM - 05:00 PM</p>
               </div>
               <div>
-                <p className="font-medium text-gray-900">Slot Duration</p>
-                <p className="text-gray-600">30 minutes per appointment</p>
+                <p className="text-sm font-medium text-gray-900">Slot Duration</p>
+                <p className="text-xs text-gray-600">30 minutes per appointment</p>
               </div>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={onModifyHours}>
                 Modify Hours
               </Button>
             </CardContent>
@@ -105,7 +105,7 @@ export const ScheduleManager = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+              <CardTitle className="text-base">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button variant="outline" className="w-full justify-start">

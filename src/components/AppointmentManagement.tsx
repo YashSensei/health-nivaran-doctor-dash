@@ -1,11 +1,10 @@
-
 import { useState } from "react";
-import { Calendar, Clock, Users, CheckCircle, XCircle } from "lucide-react";
+import { Calendar, Clock, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const appointmentRequests = [
+const initialAppointmentRequests = [
   {
     id: 1,
     patient: "Michael Brown",
@@ -14,15 +13,6 @@ const appointmentRequests = [
     source: "WhatsApp Bot",
     priority: "High",
     submitted: "2 hours ago",
-  },
-  {
-    id: 2,
-    patient: "Sarah Connor",
-    requestedTime: "2024-01-25 02:30 PM",
-    reason: "Follow-up appointment",
-    source: "Phone Call",
-    priority: "Medium",
-    submitted: "4 hours ago",
   },
   {
     id: 3,
@@ -35,7 +25,7 @@ const appointmentRequests = [
   },
 ];
 
-const confirmedAppointments = [
+const initialConfirmedAppointments = [
   {
     id: 1,
     patient: "John Smith",
@@ -64,15 +54,21 @@ const confirmedAppointments = [
 
 export const AppointmentManagement = () => {
   const [selectedTab, setSelectedTab] = useState("requests");
+  const [appointmentRequests, setAppointmentRequests] = useState(initialAppointmentRequests);
+  const [confirmedAppointments, setConfirmedAppointments] = useState(initialConfirmedAppointments);
+  const [consultingPatient, setConsultingPatient] = useState<string | null>(null);
 
   const handleApprove = (id: number) => {
-    console.log("Approved appointment:", id);
-    // In a real app, this would update the backend
+    setAppointmentRequests((prev) => prev.filter((req) => req.id !== id));
   };
 
   const handleReject = (id: number) => {
-    console.log("Rejected appointment:", id);
-    // In a real app, this would update the backend
+    setAppointmentRequests((prev) => prev.filter((req) => req.id !== id));
+  };
+
+  const handleStartConsultation = (patient: string) => {
+    setConsultingPatient(patient);
+    setTimeout(() => setConsultingPatient(null), 2000);
   };
 
   return (
@@ -96,7 +92,6 @@ export const AppointmentManagement = () => {
             </div>
           </CardContent>
         </Card>
-        
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -108,7 +103,6 @@ export const AppointmentManagement = () => {
             </div>
           </CardContent>
         </Card>
-        
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -130,72 +124,45 @@ export const AppointmentManagement = () => {
         </TabsList>
 
         <TabsContent value="requests" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-lg">
-                <Clock className="h-4 w-4 mr-2 text-orange-600" />
+          <Card className="bg-white border border-gray-100 rounded-xl shadow-none p-0">
+            <CardHeader className="px-6 pt-6 pb-2">
+              <CardTitle className="flex items-center text-base text-gray-700 font-semibold">
+                <Clock className="h-4 w-4 mr-2 text-gray-400" />
                 Appointment Requests Awaiting Approval
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {appointmentRequests.map((request) => (
-                  <div key={request.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <h3 className="text-sm font-semibold text-gray-900">{request.patient}</h3>
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              request.priority === "High"
-                                ? "bg-red-100 text-red-700"
-                                : request.priority === "Medium"
-                                ? "bg-orange-100 text-orange-700"
-                                : "bg-green-100 text-green-700"
-                            }`}
-                          >
-                            {request.priority} Priority
-                          </span>
-                          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
-                            {request.source}
-                          </span>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                          <div>
-                            <p className="font-medium text-gray-600">Requested Time</p>
-                            <p className="text-gray-900">{request.requestedTime}</p>
-                          </div>
-                          <div>
-                            <p className="font-medium text-gray-600">Reason</p>
-                            <p className="text-gray-900">{request.reason}</p>
-                          </div>
-                          <div>
-                            <p className="font-medium text-gray-600">Submitted</p>
-                            <p className="text-gray-900">{request.submitted}</p>
-                          </div>
-                        </div>
+            <CardContent className="px-6 pb-6 pt-0">
+              <div className="flex flex-col gap-4">
+                {appointmentRequests.length === 0 ? (
+                  <div className="text-gray-400 text-sm text-center py-8">No pending requests.</div>
+                ) : appointmentRequests.map((request) => (
+                  <div key={request.id} className="flex items-start justify-between border-b last:border-b-0 border-gray-100 pb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-medium text-gray-800 text-sm">{request.patient}</span>
+                        <span className="px-2 py-0.5 rounded text-xs font-normal bg-gray-100 text-gray-600 border border-gray-200">{request.priority} Priority</span>
+                        <span className="px-2 py-0.5 rounded text-xs font-normal bg-green-50 text-green-700 border border-green-100">{request.source}</span>
                       </div>
-                      
-                      <div className="flex space-x-3 ml-6">
-                        <Button
-                          onClick={() => handleApprove(request.id)}
-                          className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5"
-                          size="sm"
-                        >
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          Accept
-                        </Button>
-                        <Button
-                          onClick={() => handleReject(request.id)}
-                          variant="outline"
-                          className="border-red-300 text-red-600 hover:bg-red-50 text-xs px-3 py-1.5"
-                          size="sm"
-                        >
-                          <XCircle className="h-3 w-3 mr-1" />
-                          Reject
-                        </Button>
-                      </div>
+                      <div className="text-xs text-gray-500 mb-1">{request.requestedTime} • {request.reason}</div>
+                      <div className="text-xs text-gray-400">Requested {request.submitted}</div>
+                    </div>
+                    <div className="flex flex-col gap-2 ml-4">
+                      <Button
+                        onClick={() => handleApprove(request.id)}
+                        variant="outline"
+                        className="border-gray-200 text-green-700 text-xs px-3 py-1 h-7 min-w-[70px]"
+                        size="sm"
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        onClick={() => handleReject(request.id)}
+                        variant="ghost"
+                        className="text-red-500 text-xs px-3 py-1 h-7 min-w-[70px]"
+                        size="sm"
+                      >
+                        Reject
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -205,39 +172,46 @@ export const AppointmentManagement = () => {
         </TabsContent>
 
         <TabsContent value="confirmed" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-lg">
-                <Calendar className="h-4 w-4 mr-2 text-blue-600" />
+          <Card className="bg-white border border-gray-100 rounded-xl shadow-none p-0">
+            <CardHeader className="px-6 pt-6 pb-2">
+              <CardTitle className="flex items-center text-base text-gray-700 font-semibold">
+                <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                 Today's Confirmed Appointments
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+            <CardContent className="px-6 pb-6 pt-0">
+              <div className="flex flex-col gap-3">
                 {confirmedAppointments.map((appointment) => (
-                  <div key={appointment.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-xs font-medium text-blue-600 w-16">
-                        {appointment.time}
-                      </div>
+                  <div key={appointment.id} className="flex items-center justify-between border-b last:border-b-0 border-gray-100 pb-3">
+                    <div className="flex items-center gap-4">
+                      <div className="text-xs text-gray-500 w-16">{appointment.time}</div>
                       <div>
-                        <p className="font-medium text-gray-900 text-sm">{appointment.patient}</p>
-                        <p className="text-xs text-gray-600">{appointment.reason}</p>
+                        <div className="font-medium text-gray-800 text-sm">{appointment.patient}</div>
+                        <div className="text-xs text-gray-500">{appointment.reason}</div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
-                        {appointment.status}
-                      </span>
+                    <div className="flex items-center gap-2">
+                      <span className="border border-green-200 text-green-700 px-2 py-0.5 rounded text-xs font-normal bg-green-50">{appointment.status}</span>
                       <Button 
-                        className="bg-blue-600 hover:bg-blue-700 text-xs px-3 py-1.5"
+                        variant="outline"
+                        className="border-gray-200 text-gray-700 text-xs px-3 py-1 h-7"
                         size="sm"
+                        onClick={() => handleStartConsultation(appointment.patient)}
                       >
                         Start Consultation
                       </Button>
                     </div>
                   </div>
                 ))}
+                {consultingPatient && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-20">
+                    <div className="bg-white rounded-lg shadow-lg p-8 min-w-[280px] text-center">
+                      <div className="text-lg font-semibold mb-2">Consultation Started</div>
+                      <div className="text-gray-700 mb-4">Consultation started for <span className="font-bold">{consultingPatient}</span>.</div>
+                      <Button onClick={() => setConsultingPatient(null)} className="bg-blue-600 text-white px-4 py-1.5 rounded">Close</Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

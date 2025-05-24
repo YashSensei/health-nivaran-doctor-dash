@@ -1,4 +1,3 @@
-
 import { Calendar, Users, FileText, MessageSquare, Settings, User, List, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getUnreadMessagesCount } from "./Messages";
@@ -24,9 +23,9 @@ const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
   ];
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 shadow-sm">
-      {/* Header */}
-      <div className="p-6 border-b border-gray-100">
+    <div className="h-full w-full bg-white border-r border-gray-200 shadow-sm">
+      {/* Header - Only show on desktop */}
+      <div className="hidden lg:block p-6 border-b border-gray-100">
         <h1 className="text-lg font-bold text-blue-600">Health Nivaran</h1>
         <p className="text-xs text-gray-500 mt-1">Doctor's Dashboard</p>
       </div>
@@ -65,8 +64,8 @@ const Sidebar = ({ activeSection, onSectionChange }: SidebarProps) => {
         </ul>
       </nav>
 
-      {/* Doctor Profile */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+      {/* Doctor Profile - Only show on desktop */}
+      <div className="hidden lg:block p-4 mt-auto border-t border-gray-100">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
             <User className="h-4 w-4 text-blue-600" />

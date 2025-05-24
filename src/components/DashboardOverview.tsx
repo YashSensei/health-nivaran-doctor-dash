@@ -1,137 +1,201 @@
-
-import { Calendar, Users, Clock, MessageSquare } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState } from "react";
+import { BellIcon } from "@heroicons/react/24/outline";
+import { Card } from "@/components/ui/card";
 
 const summaryCards = [
   {
-    title: "Today's Appointments",
-    value: "12",
-    subtitle: "4 pending approval",
-    icon: Calendar,
-    color: "bg-blue-50 text-blue-600",
+    title: "Appointments",
+    value: "24",
+    change: "+5.11%",
+    icon: "briefcase",
+    iconBg: "bg-yellow-100",
+    iconColor: "text-yellow-500",
   },
   {
-    title: "New Patient Queries",
-    value: "8",
-    subtitle: "From WhatsApp Bot",
-    icon: MessageSquare,
-    color: "bg-orange-50 text-orange-600",
+    title: "Hours",
+    value: "1hr",
+    change: "+7.11%",
+    icon: "clock",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-500",
   },
   {
-    title: "Total Patients",
-    value: "245",
-    subtitle: "12 new this week",
-    icon: Users,
-    color: "bg-green-50 text-green-600",
-  },
-  {
-    title: "Pending Approvals",
-    value: "6",
-    subtitle: "Appointment requests",
-    icon: Clock,
-    color: "bg-purple-50 text-purple-600",
+    title: "Surgery",
+    value: "02",
+    change: "+5.11%",
+    icon: "surgery",
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-500",
   },
 ];
 
-const upcomingAppointments = [
-  {
-    time: "09:00 AM",
-    patient: "John Smith",
-    reason: "Routine Checkup",
-    status: "Confirmed",
-  },
-  {
-    time: "10:30 AM",
-    patient: "Emma Wilson",
-    reason: "Follow-up Consultation",
-    status: "Confirmed",
-  },
-  {
-    time: "11:45 AM",
-    patient: "Michael Brown",
-    reason: "WhatsApp Bot Query",
-    status: "Pending",
-  },
-  {
-    time: "02:00 PM",
-    patient: "Lisa Davis",
-    reason: "Prescription Review",
-    status: "Confirmed",
-  },
+const appointments = [
+  { visit: "#876364", name: "Jayarajan kp", gender: "Male", reason: "Monthly checkup" },
+  { visit: "#348745", name: "Varun P", gender: "Male", reason: "Consultation" },
+  { visit: "#234856", name: "Nithya P", gender: "Female", reason: "Monthly checkup" },
+  { visit: "#542374", name: "Jithesh", gender: "Male", reason: "Monthly checkup" },
+  { visit: "#097345", name: "Vibha Ak", gender: "Female", reason: "Monthly checkup" },
+  { visit: "#123745", name: "Manushi Pl", gender: "Female", reason: "Checkup" },
+  { visit: "#382745", name: "Hari Raj", gender: "Male", reason: "Monthly checkup" },
+  { visit: "#187345", name: "Ravi Prasadh", gender: "Male", reason: "Monthly checkup" },
+];
+
+const schedule = [
+  { time: "8:00", title: "Consultation Abdul Nishan", patient: null },
+  { time: "8:20", title: "Consultation Adamu", patient: null },
+  { time: "8:30", title: "Consultation Vibha", patient: { name: "Vibha Jayarajan", time: "8:30 - 9:00", purpose: "General check-up" } },
+  { time: "9:00", title: "Consultation Abayomi Johnson", patient: null },
+  { time: "9:30", title: "Rebecca Gifts", patient: null },
+  { time: "10:00", title: "ERC Report", patient: null },
+  { time: "10:30", title: "Consolation meeting", patient: null },
+  { time: "11:00", title: "Victory Jones", patient: null },
+  { time: "11:30", title: "Board meeting", patient: null },
+  { time: "12:00", title: "Consultation", patient: null },
+  { time: "12:30", title: "Team meeting", patient: null },
+  { time: "12:40", title: "Break", patient: null },
+  { time: "12:50", title: "Board meeting", patient: null },
 ];
 
 export const DashboardOverview = () => {
+  const [selectedSchedule, setSelectedSchedule] = useState(2);
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Welcome back, Dr. Johnson!</h1>
-        <p className="text-gray-600 mt-1">Here's what's happening with your patients today.</p>
+    <div className="flex flex-col gap-6 w-full">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-2xl font-bold text-blue-900">Today</div>
+        <div className="flex items-center gap-4">
+          <input
+            type="text"
+            placeholder="Search"
+            className="rounded-lg border border-gray-200 px-4 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200"
+          />
+          <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
+            <BellIcon className="h-6 w-6 text-blue-500" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">2</span>
+          </button>
+          <button className="relative p-2 rounded-full bg-white border border-gray-200 hover:bg-gray-100">
+            <BellIcon className="h-6 w-6 text-blue-500" />
+            <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full px-1.5">1</span>
+          </button>
+        </div>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {summaryCards.map((card, index) => {
-          const Icon = card.icon;
-          return (
-            <Card key={index} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content */}
+        <div className="lg:col-span-2 flex flex-col gap-6">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {summaryCards.map((card, idx) => (
+              <Card key={idx} className="p-6 flex flex-col gap-2 shadow-none border border-gray-100">
+                <div className="flex items-center gap-4">
+                  <div className={`rounded-lg p-3 ${card.iconBg}`}>{
+                    card.icon === "briefcase" ? (
+                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
+                    ) : card.icon === "clock" ? (
+                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    ) : (
+                      <svg className={`w-7 h-7 ${card.iconColor}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 21v-4a4 4 0 0 1 8 0v4"/></svg>
+                    )
+                  }</div>
                   <div>
-                    <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                    <p className="text-2xl font-bold text-gray-900 mt-1">{card.value}</p>
-                    <p className="text-sm text-gray-500 mt-1">{card.subtitle}</p>
-                  </div>
-                  <div className={`p-3 rounded-lg ${card.color}`}>
-                    <Icon className="h-6 w-6" />
+                    <div className="text-2xl font-bold text-blue-900">{card.value}</div>
+                    <div className="text-gray-500 text-sm">{card.title}</div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
-      {/* Upcoming Schedule */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <Clock className="h-5 w-5 mr-2 text-blue-600" />
-            Today's Schedule
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {upcomingAppointments.map((appointment, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                <div className="flex items-center space-x-4">
-                  <div className="text-sm font-medium text-blue-600 w-20">
-                    {appointment.time}
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">{appointment.patient}</p>
-                    <p className="text-sm text-gray-600">{appointment.reason}</p>
-                  </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className={`text-xs font-semibold ${card.change.startsWith("+") ? "text-green-600" : "text-red-600"}`}>{card.change}</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      appointment.status === "Confirmed"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-orange-100 text-orange-700"
-                    }`}
-                  >
-                    {appointment.status}
-                  </span>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                    {appointment.status === "Confirmed" ? "Consult" : "Approve"}
-                  </button>
-                </div>
-              </div>
+              </Card>
             ))}
           </div>
-        </CardContent>
-      </Card>
+
+          {/* Appointments Table */}
+          <Card className="p-6 mt-2">
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-lg font-bold text-blue-900">Appointments</div>
+              <button className="text-blue-600 text-sm font-semibold hover:underline">View All</button>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="text-gray-500 text-left">
+                    <th className="py-2 px-2 font-medium">Visit No.</th>
+                    <th className="py-2 px-2 font-medium">Patient Name</th>
+                    <th className="py-2 px-2 font-medium">Gender</th>
+                    <th className="py-2 px-2 font-medium">Reason</th>
+                    <th className="py-2 px-2 font-medium">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {appointments.map((a, idx) => (
+                    <tr key={a.visit} className="border-b last:border-b-0">
+                      <td className="py-2 px-2 text-blue-700 font-semibold">{a.visit}</td>
+                      <td className="py-2 px-2">{a.name}</td>
+                      <td className="py-2 px-2">{a.gender}</td>
+                      <td className="py-2 px-2">{a.reason}</td>
+                      <td className="py-2 px-2">
+                        <button className="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-xs font-semibold hover:bg-blue-100">Consult</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+
+        {/* Upcoming Schedule */}
+        <div className="lg:col-span-1">
+          <Card className="p-6 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-lg font-bold text-blue-900">Upcoming schedule</div>
+              <button className="text-blue-600 text-sm font-semibold hover:underline">View All</button>
+            </div>
+            <div className="flex-1 overflow-y-auto pr-2">
+              <div className="relative">
+                {/* Timeline vertical line, perfectly centered */}
+                <div className="absolute top-0 bottom-0 left-10 w-0.5 bg-gray-200 z-0 pointer-events-none" />
+                <ol className="space-y-6">
+                  {schedule.map((item, idx) => (
+                    <li key={idx} className="relative flex items-start z-10">
+                      {/* Time marker and dot, both centered in a 40px (w-10) column */}
+                      <div className="flex flex-col items-center justify-start mr-4 w-10 relative z-10">
+                        <span className="text-gray-400 text-xs mb-1">{item.time}</span>
+                        <span className={`w-4 h-4 rounded-full border-2 ${idx === selectedSchedule ? "bg-blue-500 border-blue-500" : "bg-white border-gray-300"} z-10`} style={{ marginTop: 0 }}></span>
+                      </div>
+                      <div className="flex-1 pl-2">
+                        {item.patient ? (
+                          <button
+                            onClick={() => setSelectedSchedule(idx)}
+                            className={`text-left font-semibold text-sm ${idx === selectedSchedule ? "text-blue-700 underline" : "text-blue-600 hover:underline"}`}
+                          >
+                            {item.title}
+                          </button>
+                        ) : (
+                          <span className="text-gray-400 text-sm line-through">{item.title}</span>
+                        )}
+                        {/* Expanded details for selected schedule */}
+                        {item.patient && idx === selectedSchedule && (
+                          <div className="mt-3 bg-white border border-blue-100 shadow-md rounded-lg p-4 w-72">
+                            <div className="mb-2">
+                              <div className="text-xs text-gray-500 font-medium">Patient</div>
+                              <div className="text-base font-semibold text-blue-900">{item.patient.name}</div>
+                            </div>
+                            <div className="text-xs text-gray-500 mb-1">Time: <span className="text-gray-700">{item.patient.time}</span></div>
+                            <div className="text-xs text-gray-500 mb-3">Purpose: <span className="text-gray-700">{item.patient.purpose}</span></div>
+                            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-blue-700 w-full">Begin appointment</button>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };

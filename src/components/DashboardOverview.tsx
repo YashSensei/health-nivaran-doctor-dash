@@ -71,7 +71,7 @@ export const DashboardOverview = () => {
     <div className="flex flex-col gap-6 w-full">
       {/* Top Bar */}
       <div className="flex items-center justify-between mb-4">
-        <div className="text-xl font-bold text-blue-900">Today</div>
+        <div className="text-xl font-bold text-blue-900">Today – May 25th</div>
         <div className="flex items-center gap-4">
           <Popover>
             <PopoverTrigger asChild>
@@ -84,7 +84,7 @@ export const DashboardOverview = () => {
                 )}
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 p-0">
+            <PopoverContent>
               <div className="p-4 border-b font-semibold text-blue-900">New Notifications</div>
               <div className="max-h-80 overflow-y-auto">
                 {unreadNotifications.length === 0 ? (

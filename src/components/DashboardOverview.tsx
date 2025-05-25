@@ -8,24 +8,24 @@ import { Button } from "@/components/ui/button";
 const summaryCards = [
   {
     title: "Appointments",
-    value: "24",
-    change: "+5.11%",
+    value: "18",
+    change: "+3.5%",
     icon: "briefcase",
     iconBg: "bg-yellow-100",
     iconColor: "text-yellow-500",
   },
   {
     title: "Hours",
-    value: "1hr",
-    change: "+7.11%",
+    value: "2hr",
+    change: "+4.2%",
     icon: "clock",
     iconBg: "bg-blue-100",
     iconColor: "text-blue-500",
   },
   {
     title: "Surgery",
-    value: "02",
-    change: "+5.11%",
+    value: "01",
+    change: "+2.8%",
     icon: "surgery",
     iconBg: "bg-orange-100",
     iconColor: "text-orange-500",
@@ -33,30 +33,94 @@ const summaryCards = [
 ];
 
 const appointments = [
-  { visit: "#876364", name: "Jayarajan kp", gender: "Male", reason: "Monthly checkup" },
-  { visit: "#348745", name: "Varun P", gender: "Male", reason: "Consultation" },
-  { visit: "#234856", name: "Nithya P", gender: "Female", reason: "Monthly checkup" },
-  { visit: "#542374", name: "Jithesh", gender: "Male", reason: "Monthly checkup" },
-  { visit: "#097345", name: "Vibha Ak", gender: "Female", reason: "Monthly checkup" },
-  { visit: "#123745", name: "Manushi Pl", gender: "Female", reason: "Checkup" },
-  { visit: "#382745", name: "Hari Raj", gender: "Male", reason: "Monthly checkup" },
-  { visit: "#187345", name: "Ravi Prasadh", gender: "Male", reason: "Monthly checkup" },
+  { 
+    visit: "#UP/2024/0525/001", 
+    name: "Rajesh Kumar Singh", 
+    gender: "Male", 
+    reason: "Type 2 Diabetes Follow-up" 
+  },
+  { 
+    visit: "#UP/2024/0525/002", 
+    name: "Priya Sharma", 
+    gender: "Female", 
+    reason: "Antenatal Checkup (28 weeks)" 
+  },
+  { 
+    visit: "#UP/2024/0525/003", 
+    name: "Amit Kumar Yadav", 
+    gender: "Male", 
+    reason: "Hypertension Review" 
+  },
+  { 
+    visit: "#UP/2024/0525/004", 
+    name: "Sunita Devi", 
+    gender: "Female", 
+    reason: "Thyroid Function Test Review" 
+  },
+  { 
+    visit: "#UP/2024/0525/005", 
+    name: "Rahul Gupta", 
+    gender: "Male", 
+    reason: "Seasonal Fever & Respiratory Infection" 
+  },
+  { 
+    visit: "#UP/2024/0525/006", 
+    name: "Meena Kumari", 
+    gender: "Female", 
+    reason: "Routine Health Checkup" 
+  },
+  { 
+    visit: "#UP/2024/0525/007", 
+    name: "Vikram Singh", 
+    gender: "Male", 
+    reason: "Rheumatoid Arthritis Follow-up" 
+  },
+  { 
+    visit: "#UP/2024/0525/008", 
+    name: "Anita Rani", 
+    gender: "Female", 
+    reason: "Post-delivery Checkup" 
+  },
+  { 
+    visit: "#UP/2024/0525/009", 
+    name: "Mohammed Iqbal", 
+    gender: "Male", 
+    reason: "Cardiac Consultation" 
+  },
+  { 
+    visit: "#UP/2024/0525/010", 
+    name: "Kavita Mishra", 
+    gender: "Female", 
+    reason: "PCOS Management" 
+  },
+  { 
+    visit: "#UP/2024/0525/011", 
+    name: "Harish Chandra", 
+    gender: "Male", 
+    reason: "Kidney Function Test Review" 
+  },
+  { 
+    visit: "#UP/2024/0525/012", 
+    name: "Neelam Yadav", 
+    gender: "Female", 
+    reason: "Anemia Treatment Follow-up" 
+  }
 ];
 
 const schedule = [
-  { time: "8:00", title: "Consultation Abdul Nishan", patient: null },
-  { time: "8:20", title: "Consultation Adamu", patient: null },
-  { time: "8:30", title: "Consultation Vibha", patient: { name: "Vibha Jayarajan", time: "8:30 - 9:00", purpose: "General check-up" } },
-  { time: "9:00", title: "Consultation Abayomi Johnson", patient: null },
-  { time: "9:30", title: "Rebecca Gifts", patient: null },
-  { time: "10:00", title: "ERC Report", patient: null },
-  { time: "10:30", title: "Consolation meeting", patient: null },
-  { time: "11:00", title: "Victory Jones", patient: null },
-  { time: "11:30", title: "Board meeting", patient: null },
-  { time: "12:00", title: "Consultation", patient: null },
-  { time: "12:30", title: "Team meeting", patient: null },
-  { time: "12:40", title: "Break", patient: null },
-  { time: "12:50", title: "Board meeting", patient: null },
+  { time: "9:00", title: "Consultation Rajesh Kumar", patient: null },
+  { time: "9:30", title: "Consultation Priya Sharma", patient: null },
+  { time: "10:00", title: "Consultation Amit Yadav", patient: { name: "Amit Kumar Yadav", time: "10:00 - 10:30", purpose: "Blood Pressure Check" } },
+  { time: "10:30", title: "Consultation Sunita Devi", patient: null },
+  { time: "11:00", title: "Medical Report Review", patient: null },
+  { time: "11:30", title: "Emergency Case", patient: null },
+  { time: "12:00", title: "Rahul Gupta", patient: null },
+  { time: "12:30", title: "Meena Kumari", patient: null },
+  { time: "13:00", title: "Lunch Break", patient: null },
+  { time: "14:00", title: "Vikram Singh", patient: null },
+  { time: "14:30", title: "Anita Rani", patient: null },
+  { time: "15:00", title: "Staff Meeting", patient: null },
+  { time: "15:30", title: "Minor Surgery", patient: null },
 ];
 
 export const DashboardOverview = () => {
@@ -65,7 +129,7 @@ export const DashboardOverview = () => {
 
   // Demo auth state
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const doctorName = "Dr. Sarah Johnson";
+  const doctorName = "Dr. Rajesh Kumar Sharma";
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -168,7 +232,7 @@ export const DashboardOverview = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr className="text-gray-500 text-left">
-                    <th className="py-2 px-2 font-medium text-xs">Visit No.</th>
+                    <th className="py-2 px-2 font-medium text-xs">Visit ID</th>
                     <th className="py-2 px-2 font-medium text-xs">Patient Name</th>
                     <th className="py-2 px-2 font-medium text-xs">Gender</th>
                     <th className="py-2 px-2 font-medium text-xs">Reason</th>
@@ -177,8 +241,8 @@ export const DashboardOverview = () => {
                 </thead>
                 <tbody>
                   {appointments.map((a, idx) => (
-                    <tr key={a.visit} className="border-b last:border-b-0">
-                      <td className="py-2 px-2 text-blue-700 font-semibold text-sm">{a.visit}</td>
+                    <tr key={a.visit} className="border-b last:border-b-0 hover:bg-gray-50">
+                      <td className="py-2 px-2 text-blue-700 font-mono text-xs">{a.visit}</td>
                       <td className="py-2 px-2 text-sm">{a.name}</td>
                       <td className="py-2 px-2 text-sm">{a.gender}</td>
                       <td className="py-2 px-2 text-sm">{a.reason}</td>

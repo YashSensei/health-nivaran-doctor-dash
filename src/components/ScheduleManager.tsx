@@ -4,16 +4,18 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 const timeSlots = [
-  { time: "09:00 AM", available: true, booked: false },
-  { time: "09:30 AM", available: true, booked: true, patient: "John Smith" },
+  { time: "09:00 AM", available: true, booked: true, patient: "Sunita Devi" },
+  { time: "09:30 AM", available: true, booked: true, patient: "Rajesh Kumar Singh" },
   { time: "10:00 AM", available: true, booked: false },
-  { time: "10:30 AM", available: true, booked: true, patient: "Emma Wilson" },
+  { time: "10:30 AM", available: true, booked: true, patient: "Rahul Gupta" },
   { time: "11:00 AM", available: true, booked: false },
   { time: "11:30 AM", available: false, booked: false },
   { time: "12:00 PM", available: false, booked: false },
-  { time: "02:00 PM", available: true, booked: true, patient: "Lisa Davis" },
-  { time: "02:30 PM", available: true, booked: false },
-  { time: "03:00 PM", available: true, booked: false },
+  { time: "02:00 PM", available: true, booked: true, patient: "Meena Kumari" },
+  { time: "02:30 PM", available: true, booked: true, patient: "Priya Sharma" },
+  { time: "03:00 PM", available: true, booked: true, patient: "Vikram Singh" },
+  { time: "03:30 PM", available: true, booked: false },
+  { time: "04:00 PM", available: true, booked: false },
 ];
 
 export const ScheduleManager = ({ onModifyHours }: { onModifyHours?: () => void }) => {
@@ -91,7 +93,7 @@ export const ScheduleManager = ({ onModifyHours }: { onModifyHours?: () => void 
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-900">Afternoon Session</p>
-                <p className="text-xs text-gray-600">02:00 PM - 05:00 PM</p>
+                <p className="text-xs text-gray-600">02:00 PM - 04:30 PM</p>
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-900">Slot Duration</p>

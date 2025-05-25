@@ -25,19 +25,19 @@ export const Settings = () => {
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="name">Full Name</Label>
-              <Input id="name" defaultValue="Dr. Sarah Johnson" />
+              <Input id="name" defaultValue="Dr. Rajesh Kumar Sharma" />
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" defaultValue="dr.sarah@healthnivaran.com" />
+              <Input id="email" type="email" defaultValue="dr.rajesh@healthnivaran.com" />
             </div>
             <div>
               <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" defaultValue="+1 (555) 123-4567" />
+              <Input id="phone" defaultValue="+91 98765 43210" />
             </div>
             <div>
               <Label htmlFor="specialization">Specialization</Label>
-              <Input id="specialization" defaultValue="General Physician" />
+              <Input id="specialization" defaultValue="General Physician & Diabetologist" />
             </div>
             <Button className="w-full">Update Profile</Button>
           </CardContent>
@@ -66,7 +66,7 @@ export const Settings = () => {
             </div>
             <div>
               <Label htmlFor="afternoon-end">Afternoon Session End</Label>
-              <Input id="afternoon-end" type="time" defaultValue="17:00" />
+              <Input id="afternoon-end" type="time" defaultValue="16:30" />
             </div>
             <Button className="w-full">Update Schedule</Button>
           </CardContent>
@@ -86,7 +86,7 @@ export const Settings = () => {
               <Button variant="outline" size="sm">Enabled</Button>
             </div>
             <div className="flex items-center justify-between">
-              <span>Appointment Reminders</span>
+              <span>Appointment Reminders (Hindi)</span>
               <Button variant="outline" size="sm">Enabled</Button>
             </div>
             <div className="flex items-center justify-between">
@@ -96,6 +96,10 @@ export const Settings = () => {
             <div className="flex items-center justify-between">
               <span>Email Notifications</span>
               <Button variant="outline" size="sm">Disabled</Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>SMS Notifications</span>
+              <Button variant="outline" size="sm">Enabled</Button>
             </div>
             <Button className="w-full">Save Preferences</Button>
           </CardContent>
@@ -112,11 +116,11 @@ export const Settings = () => {
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="timezone">Timezone</Label>
-              <Input id="timezone" defaultValue="UTC-5 (Eastern Time)" />
+              <Input id="timezone" defaultValue="IST (UTC+5:30)" />
             </div>
             <div>
               <Label htmlFor="language">Language</Label>
-              <Input id="language" defaultValue="English" />
+              <Input id="language" defaultValue="Hindi & English" />
             </div>
             <div className="flex items-center justify-between">
               <span>Auto-backup</span>
@@ -124,7 +128,11 @@ export const Settings = () => {
             </div>
             <div className="flex items-center justify-between">
               <span>Two-factor Authentication</span>
-              <Button variant="outline" size="sm">Setup</Button>
+              <Button variant="outline" size="sm">Enabled</Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Digital Prescription</span>
+              <Button variant="outline" size="sm">Enabled</Button>
             </div>
             <Button className="w-full">Apply Settings</Button>
           </CardContent>
